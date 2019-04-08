@@ -35,9 +35,9 @@ public class SecretSantaGame {
 	}
 
 	// Storing giftees name to data file
-	public static void storeData(ArrayList recv, int m) throws Exception {
+	public static synchronized void storeData(ArrayList recv, int m) throws Exception {
 		Label[] label = new Label[players.size()];
-		File file = new File("C:\\Users\\aurph\\eclipse-workspace\\MLBTest\\Utility\\excell.xls");
+		File file = new File("C:\\Users\\aurph\\Desktop\\excell.xls");
 		WritableWorkbook myReport = Workbook.createWorkbook(file);
 		WritableSheet mySheet = myReport.createSheet("MySheet", 0);
 		for (int p = 0; p < m; p++) {
@@ -52,17 +52,17 @@ public class SecretSantaGame {
 
 	public static void readData(int i, int j) throws Exception {
 		Workbook wb = Workbook
-				.getWorkbook(new File("C:\\Users\\aurph\\eclipse-workspace\\MLBTest\\Utility\\excell.xls"));
+				.getWorkbook(new File("C:\\Users\\aurph\\Desktop\\excell.xls"));
 		String data00 = wb.getSheet(0).getCell(i, j).getContents();
 		System.out.println(data00);
 	}
 
-	public static void modifyData() throws Exception {
+	public static synchronized void modifyData() throws Exception {
 		giftee = (ArrayList<String>) players.clone();
 		Workbook wb = Workbook
-				.getWorkbook(new File("C:\\Users\\aurph\\eclipse-workspace\\MLBTest\\Utility\\excell.xls"));
+				.getWorkbook(new File("C:\\Users\\aurph\\Desktop\\excell.xls"));
 		WritableWorkbook copy = Workbook
-				.createWorkbook(new File("C:\\Users\\aurph\\eclipse-workspace\\MLBTest\\Utility\\excell.xls"), wb);
+				.createWorkbook(new File("C:\\Users\\aurph\\Desktop\\excell.xls"), wb);
 		mySheet = copy.getSheet(0);
 
 		Label[] label = new Label[players.size()];
@@ -82,7 +82,7 @@ public class SecretSantaGame {
 	}
 
 	// Playing the game
-	public static void play() throws Exception {
+	public static synchronized void play() throws Exception {
 
 		giftee = (ArrayList<String>) players.clone();
 		// Shuffling actual list
